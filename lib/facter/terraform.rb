@@ -1,7 +1,6 @@
 Facter.add('terraform_version') do
     setcode do
-        check = Facter::Core::Execution.execute('which terraform').strip!
-        if !check.nil?
+        if !(Facter::Core::Execution.execute('which terraform').chop!).nil?
             Facter::Core::Execution.execute('terraform version').sub!('Terraform v', '')
         end
     end
